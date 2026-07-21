@@ -1,0 +1,69 @@
+{
+   "Email": {
+      "regex":"[A-Za-z0-9._+\\-\\']+@[A-Za-z0-9.\\-]+\\.[A-Za-z]{2,}",
+      "region":null,
+      "keywords":null
+   },
+   "Phone Number": {
+      "regex":"((\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}|[0-9]{10}|\\+{1}[0-9 ]{11,15}|[0-9]{4} [0-9]{6})",
+      "region":null,
+      "keywords":[
+         "phone",
+         "telephone",
+         "tel",
+         "contact",
+         "whatsapp",
+         "telegram",
+         "sms"
+      ]
+   },
+   "Banking": {
+     "keywords": ["bank", "bank account", "statement", "ifsc", "branch", "savings", "account number", "amount", "credit", "debit"],
+     "regex": null,
+     "region": null
+   },
+   "Payment Card": {
+      "keywords": [
+          "visa", "mastercard", "amex", "american express", "rupay",
+          "debit card", "credit card", "atm card", "bank", "valid", "expires", "expiry", "thru", "cvv"
+      ],
+      "regex": ["\\b(?:\\d{4}[ -]?){3}(?=\\d{4}\\b)(?:\\d{4})"],
+      "region": null
+   },
+   "UUID4": {
+       "regex":"[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}",
+       "region":null,
+       "keywords":null
+   },
+   "Professional Resume": {
+       "regex":null,
+       "region":null,
+       "keywords":[
+         "Experience",
+         "Education",
+         "Skill",
+         "References",
+         "Resume",
+         "Work"
+      ]
+   },
+   "Jordanian National ID": {
+      "regex":"(?:IDJOR)(?:[A-Z0-9<].+)",
+      "region":"Jordan",
+      "keywords":[
+         "Jordan",
+         "IDJOR",
+         "<<",
+	 "ID",
+	 "Card"
+      ]
+   },
+   "Jordanian Passport": {
+      "regex":"(?:P<JOR)(?:[A-Z0-9<].+)",
+      "region":"Jordan",
+      "keywords":[
+	 "Passport",
+	 "JOR"
+      ]
+   }
+}
