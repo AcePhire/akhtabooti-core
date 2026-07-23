@@ -1,5 +1,5 @@
-use crate::text_utils;
-use crate::file_utils;
+mod text_utils;
+mod file_utils;
 
 use std::collections::HashSet;
 use walkdir::WalkDir;
