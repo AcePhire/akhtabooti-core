@@ -15,7 +15,7 @@ fn text_to_wordlist(text: &str) -> Vec<&str> {
         }
     }
 
-    return final_worldlist;
+    final_worldlist
 }
 
 pub fn get_regexes(file_path: &str) -> Result<Value, io::Error> {
