@@ -9,10 +9,10 @@ use serde::{Serialize, Deserialize};
 
 #[derive(Default, Serialize, Deserialize, Debug)]
 pub struct FilePIIs {
-    filename: String,
-    email_accounts: HashSet<String>,
-    phone_numbers: HashSet<String>,
-    other_piis: Vec<String>
+    pub filename: String,
+    pub email_accounts: HashSet<String>,
+    pub phone_numbers: HashSet<String>,
+    pub other_piis: HashSet<String>
 }
 
 fn search_text_for_pii(filename: &str, text: &str) -> Result<FilePIIs, io::Error> {

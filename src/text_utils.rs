@@ -62,10 +62,10 @@ pub fn detect_phone_numbers(rules: Value, text: &str) -> Result<HashSet<String>,
     Ok(phone_list)
 }
 
-pub fn detect_keywords(rules: Value, text: &str) -> Result<Vec<String>, io::Error> {
+pub fn detect_keywords(rules: Value, text: &str) -> Result<HashSet<String>, io::Error> {
     let wordlist = text_to_wordlist(text);
 
-    let mut results: Vec<String> = Vec::new();
+    let mut results: HashSet<String> = HashSet::new();
 
     if let Some(map) = rules.as_object() {
         for (key, rule) in map {
@@ -76,7 +76,7 @@ pub fn detect_keywords(rules: Value, text: &str) -> Result<Vec<String>, io::Erro
                     for kw in kws {
                         let sim = similarity(&clean_word(word), &clean_word(&kw.to_string()));
                         if sim > 80.0 {
-                            results.push(key.to_string());
+                            results.insert(key.to_string());
                         }
                     }
                 }
