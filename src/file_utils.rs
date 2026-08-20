@@ -45,6 +45,7 @@ pub fn ocr_rec(file_path: &str) -> Result<String, Box<dyn std::error::Error>> {
     let mut text: String = "".to_string();
     for item in results {
         text.push_str(&item.text);
+        text.push('\n');
     }
 
     Ok(text.to_string())

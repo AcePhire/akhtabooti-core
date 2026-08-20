@@ -1,5 +1,5 @@
-mod text_utils;
-mod file_utils;
+pub mod text_utils;
+pub mod file_utils;
 
 use std::collections::HashSet;
 use walkdir::WalkDir;
