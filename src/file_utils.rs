@@ -1,5 +1,6 @@
 use std::fs::File;
 use std::io::Read;
+use std::io;
 use extractous::Extractor;
 use ocr_rs::OcrEngine;
 
@@ -51,13 +52,20 @@ pub fn ocr_rec(file_path: &str) -> Result<String, Box<dyn std::error::Error>> {
     Ok(text.to_string())
 }
 
-pub fn extract_text(file_path: &str) -> String {
+pub fn extract_text(file_path: &str) -> Result<String, io::Error> {
     if is_image(file_path) {
-        return ocr_rec(file_path).unwrap();
+        let text = ocr_rec(file_path).unwrap();
+        return Ok(text);
     }
 
     let extractor = Extractor::new();
 
-    let (text, _) = extractor.extract_file_to_string(file_path).unwrap();
-    text
+    match extractor.extract_file_to_string(file_path) {
+        Ok((text, _)) => {
+            return Ok(text)
+        },
+        Err(err) => {
+            return Ok("".to_string())
+        }
+    };
 }
