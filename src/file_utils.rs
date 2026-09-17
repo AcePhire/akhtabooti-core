@@ -29,27 +29,22 @@ pub fn is_pdf(file_path: &str) -> bool {
 }
 
 pub fn ocr_rec(file_path: &str) -> Result<String, Box<dyn std::error::Error>> {
-    let DET_MODEL: String = "models/PP-OCRv6_small_det.mnn".to_string();
-    let REC_MODEL: String = "models/PP-OCRv6_small_rec.mnn".to_string();
-    let KEYS: String = "models/ppocr_keys_v6_small.txt".to_string();
+    let det_model = "models/PP-OCRv6_small_det.mnn".to_string();
+    let rec_model = "models/PP-OCRv6_small_rec.mnn".to_string();
+    let keys = "models/ppocr_keys_v6_small.txt".to_string();
 
-    let engine = OcrEngine::new(
-        DET_MODEL,
-        REC_MODEL,
-        KEYS,
-        None,
-    )?;
+    let engine = OcrEngine::new(det_model, rec_model, keys, None)?;
 
     let image = image::open(file_path)?;
     let results = engine.recognize(&image)?;
 
-    let mut text: String = "".to_string();
+    let mut text = String::new();
     for item in results {
         text.push_str(&item.text);
         text.push('\n');
     }
 
-    Ok(text.to_string())
+    Ok(text)
 }
 
 pub fn extract_text(file_path: &str) -> Result<String, io::Error> {
