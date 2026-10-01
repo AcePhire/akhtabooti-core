@@ -77,6 +77,14 @@ fn similarity(a: &str, b: &str) -> f64 {
     jaro_winkler(a, b) * 100.0
 }
 
+fn keyword_matches(candidate: &str, target: &str) -> bool {
+    if target.chars().count() <= 3 {
+        candidate == target
+    } else {
+        similarity(candidate, target) >= 90.0
+    }
+}
+
 fn find_keywords(kws: &[Vec<String>], words: &[(&str, String)]) -> HashSet<String> {
     let mut found = HashSet::new();
 
@@ -84,7 +92,7 @@ fn find_keywords(kws: &[Vec<String>], words: &[(&str, String)]) -> HashSet<Strin
         let target = kw.join(" ");
         for window in words.windows(kw.len()) {
             let candidate: Vec<&str> = window.iter().map(|(_, c)| c.as_str()).collect();
-            if similarity(&candidate.join(" "), &target) > 80.0 {
+            if keyword_matches(&candidate.join(" "), &target) {
                 let original: Vec<&str> = window.iter().map(|(o, _)| *o).collect();
                 found.insert(original.join(" "));
             }
