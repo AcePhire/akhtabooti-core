@@ -10,9 +10,10 @@ fn main() -> Result<(), io::Error> {
 
     for file_result in scan_results {
         println!("{:?}", file_result.filename);
-        println!("{:?}", file_result.email_accounts);
-        println!("{:?}", file_result.phone_numbers);
-        println!("{:?}", file_result.other_piis);
+        if !file_result.email_accounts.is_empty() { println!("{:?}", file_result.email_accounts) };
+        if !file_result.phone_numbers.is_empty() { println!("{:?}", file_result.phone_numbers) };
+        if !file_result.other_piis.is_empty() { println!("{:?}", file_result.other_piis) };
+        println!("----------------------------------")
     }
     Ok(())
 }
