@@ -1,69 +1,70 @@
 {
-   "Email": {
-      "regex":"[A-Za-z0-9._+\\-\\']+@[A-Za-z0-9.\\-]+\\.[A-Za-z]{2,}",
-      "region":null,
-      "keywords":null
-   },
-   "Phone Number": {
-      "regex":"((\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}|[0-9]{10}|\\+{1}[0-9 ]{11,15}|[0-9]{4} [0-9]{6})",
-      "region":null,
-      "keywords":[
-         "phone",
-         "telephone",
-         "tel",
-         "contact",
-         "whatsapp",
-         "telegram",
-         "sms"
+  "Email": {
+    "region": null,
+    "rules": [
+      [{ "regex": "[A-Za-z0-9._+\\-\\']+@[A-Za-z0-9.\\-]+\\.[A-Za-z]{2,}" }]
+    ]
+  },
+  "Phone Number": {
+    "region": null,
+    "rules": [
+      [{ "regex": "(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}" }],
+      [{ "regex": "\\+[0-9 ]{11,15}" }],
+      [
+        { "regex": "\\b[0-9]{10}\\b|\\b[0-9]{4} [0-9]{6}\\b" },
+        { "keywords": ["phone", "telephone", "tel", "contact", "whatsapp", "telegram", "sms"] }
       ]
-   },
-   "Banking": {
-     "keywords": ["bank", "bank account", "statement", "ifsc", "branch", "savings", "account number", "amount", "credit", "debit"],
-     "regex": null,
-     "region": null
-   },
-   "Payment Card": {
-      "keywords": [
-          "visa", "mastercard", "amex", "american express", "rupay",
-          "debit card", "credit card", "atm card", "bank", "valid", "expires", "expiry", "thru", "cvv"
+    ]
+  },
+  "Banking": {
+    "region": null,
+    "rules": [
+      [{ "keywords": ["bank account", "account number", "ifsc"] }],
+      [
+        { "keywords": ["bank", "statement"] },
+        { "keywords": ["branch", "savings", "amount", "credit", "debit"] }
+      ]
+    ]
+  },
+  "Payment Card": {
+    "region": null,
+    "rules": [
+      [
+        { "regex": "\\b(?:\\d{4}[ -]?){3}\\d{4}\\b" },
+        { "keywords": ["visa", "mastercard", "amex", "american express", "rupay", "debit card", "credit card", "atm card", "bank"] }
       ],
-      "regex": ["\\b(?:\\d{4}[ -]?){3}(?=\\d{4}\\b)(?:\\d{4})"],
-      "region": null
-   },
-   "UUID4": {
-       "regex":"[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}",
-       "region":null,
-       "keywords":null
-   },
-   "Professional Resume": {
-       "regex":null,
-       "region":null,
-       "keywords":[
-         "Experience",
-         "Education",
-         "Skill",
-         "References",
-         "Resume",
-         "Work"
+      [
+        { "regex": "\\b(?:\\d{4}[ -]?){3}\\d{4}\\b" },
+        { "keywords": ["valid", "expires", "expiry", "thru", "cvv"] }
       ]
-   },
-   "Jordanian National ID": {
-      "regex":"(?:IDJOR)(?:[A-Z0-9<].+)",
-      "region":"Jordan",
-      "keywords":[
-         "Jordan",
-         "IDJOR",
-         "<<",
-	 "ID",
-	 "Card"
-      ]
-   },
-   "Jordanian Passport": {
-      "regex":"(?:P<JOR)(?:[A-Z0-9<].+)",
-      "region":"Jordan",
-      "keywords":[
-	 "Passport",
-	 "JOR"
-      ]
-   }
+    ]
+  },
+  "UUID4": {
+    "region": null,
+    "rules": [
+      [{ "regex": "[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}" }]
+    ]
+  },
+  "Professional Resume": {
+    "region": null,
+    "rules": [
+      [{ "keywords": ["Resume"] }],
+      [{ "keywords": ["Experience", "Work"] }, { "keywords": ["Education"] }],
+      [{ "keywords": ["Experience", "Work"] }, { "keywords": ["Skill"] }, { "keywords": ["References"] }]
+    ]
+  },
+  "Jordanian National ID": {
+    "region": "Jordan",
+    "rules": [
+      [{ "regex": "(?:IDJOR)(?:[A-Z0-9<].+)" }],
+      [{ "keywords": ["Jordan"] }, { "keywords": ["ID", "Card"] }, { "keywords": ["<<"] }]
+    ]
+  },
+  "Jordanian Passport": {
+    "region": "Jordan",
+    "rules": [
+      [{ "regex": "(?:P<JOR)(?:[A-Z0-9<].+)" }],
+      [{ "keywords": ["Passport"] }, { "keywords": ["JOR"] }]
+    ]
+  }
 }

@@ -18,14 +18,18 @@ pub struct FilePIIs {
 //detect piis within a certain text
 //detection definitions are in 'definitions.json'
 fn search_text_for_pii(filename: &str, text: &str) -> Result<FilePIIs, io::Error> {
-    let regex = text_utils::get_regexes("definitions.json");
-    let rules = regex.unwrap();
+    let defs = text_utils::load_definitions("definitions.json")?;
+    let mut results = text_utils::detect(&defs, text);
+
+    let email_accounts: HashSet<String> = results.remove("Email").unwrap_or_default();
+    let phone_numbers: HashSet<String> = results.remove("Phone Number").unwrap_or_default();
+    let other_piis: HashSet<String> = results.into_keys().collect();
 
     let pii = FilePIIs {
         filename: filename.to_string(),
-        email_accounts: text_utils::detect_emails(rules.clone(), text).unwrap(),
-        phone_numbers: text_utils::detect_phone_numbers(rules.clone(), text).unwrap(),
-        other_piis: text_utils::detect_keywords(rules.clone(), text).unwrap()
+        email_accounts,
+        phone_numbers,
+        other_piis,
     };
 
     Ok(pii)
