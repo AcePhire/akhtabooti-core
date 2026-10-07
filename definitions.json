@@ -33,5 +33,24 @@
       [{ "regex": "[A-Z0-9<]{9}[0-9]JOR[0-9]{6}[0-9][MF<][0-9]{6}[0-9]" }],
       [{ "keywords": ["Passport"] }, { "keywords": ["JOR", "Jordan", "HASHEMITE KINGDOM"] }]
     ]
+  },
+  "Syrian Refugee Document": {
+    "region": "Jordan",
+    "rules": [
+      [
+        { "keywords": ["وزارة العمل", "تصريح عمل"] },
+        { "keywords": ["المملكة الأردنية الهاشمية"] },
+        { "keywords": ["سوري", "سورية", "السورية", "سوريا", "الجمهورية العربية السورية"] }
+      ],
+      [
+        { "keywords": ["وزارة الداخلية"] },
+        { "keywords": ["بطاقة الخدمة", "بطاقة خدمة"] },
+        { "keywords": ["سوري", "سورية", "السورية", "سوريا"] }
+      ],
+      [
+        { "keywords": ["UNHCR", "المفوضية السامية"] },
+        { "keywords": ["طالب لجوء", "لاجئ", "Asylum Seeker", "Refugee"] }
+      ]
+    ]
   }
 }
