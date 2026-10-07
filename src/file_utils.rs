@@ -45,8 +45,10 @@ pub fn is_pdf(file_path: &str) -> bool {
 
 pub fn ocr_rec(file_path: &str) -> Result<String, Box<dyn std::error::Error>> {
     let det_model = "models/PP-OCRv6_small_det.mnn".to_string();
-    let rec_model = "models/PP-OCRv6_small_rec.mnn".to_string();
-    let keys = "models/ppocr_keys_v6_small.txt".to_string();
+//    let rec_model = "models/PP-OCRv6_small_rec.mnn".to_string();
+    let rec_model = "models/arabic_PP-OCRv5_mobile_rec_infer.mnn".to_string();
+//    let keys = "models/ppocr_keys_v6_small.txt".to_string();
+    let keys = "models/ppocr_keys_arabic.txt".to_string();
 
     let engine = with_stdout_silenced(|| {
         OcrEngine::new(det_model, rec_model, keys, None)

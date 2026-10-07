@@ -61,7 +61,7 @@ fn compile(cond: RawCondition) -> io::Result<Condition> {
 
 fn clean_word(text: &str) -> String {
     text.chars()
-        .filter(|c| !matches!(c, '.' | '\'' | '-' | '_' | ',' | '،' | '\u{0640}' | '\u{064B}'..='\u{0652}'))
+        .filter(|c| !matches!(c, '.' | '\'' | '-' | '_' | ',' | ':' | '،' | '\u{0640}' | '\u{064B}'..='\u{0652}'))
         .map(|c| match c {
             'أ' | 'إ' | 'آ' => 'ا',
             'ة' => 'ه',
