@@ -17,6 +17,18 @@ It extracts text from a file (using OCR for images), then runs it against a set 
 1. **Text extraction**: images are passed through PaddleOCR (`ocr-rs`), and everything else (PDFs, Office docs, text files) through [extractous](https://github.com/yobix-ai/extractous).
 2. **Detection**: the text is checked against the rules in `definitions.json`, using either regex or keyword matching. Keyword matching is fuzzy and normalizes Arabic text.
 
+## Models
+
+The OCR models come from the [ocr-rs repo (`next` branch)](https://github.com/zibo-chen/ocr-rs/tree/next) and need to be in a `models/` directory at the crate root. From the crate root, run:
+
+```sh
+mkdir -p models && cd models
+for f in PP-OCRv6_small_det.mnn PP-OCRv6_small_rec.mnn ppocr_keys_v6_small.txt \
+         arabic_PP-OCRv5_mobile_rec_infer.mnn ppocr_keys_arabic.txt; do
+  curl -LO "https://raw.githubusercontent.com/zibo-chen/ocr-rs/next/models/$f"
+done
+```
+
 ## Usage
 
 ```rust
