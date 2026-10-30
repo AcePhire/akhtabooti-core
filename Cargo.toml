@@ -2,6 +2,8 @@
 name = "akhtabooti-core"
 version = "0.1.0"
 edition = "2024"
+description = "Scanning library for detecting PIIs within documents, PDFs, and images"
+license = "Apache-2.0"
 
 [dependencies]
 extractous = "0.3.0"
