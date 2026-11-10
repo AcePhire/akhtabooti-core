@@ -1,7 +1,6 @@
 use regex::Regex;
 use serde::Deserialize;
 use std::collections::{HashMap, HashSet};
-use std::fs;
 use std::io;
 use strsim::jaro_winkler;
 
@@ -30,8 +29,10 @@ pub struct Definition {
 
 pub type Definitions = HashMap<String, Definition>;
 
-pub fn load_definitions(file_path: &str) -> io::Result<Definitions> {
-    let raw: HashMap<String, RawDefinition> = serde_json::from_str(&fs::read_to_string(file_path)?)?;
+const DEFINITIONS_JSON: &str = include_str!("../definitions.json");
+
+pub fn load_definitions() -> io::Result<Definitions> {
+    let raw: HashMap<String, RawDefinition> = serde_json::from_str(DEFINITIONS_JSON)?;
 
     raw.into_iter()
         .map(|(name, def)| {

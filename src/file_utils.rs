@@ -66,7 +66,7 @@ pub fn ocr_rec(file_path: &str) -> Result<String, Box<dyn std::error::Error>> {
 
 pub fn extract_text(file_path: &str) -> Result<String, io::Error> {
     if is_image(file_path) {
-        let text = ocr_rec(file_path).unwrap();
+        let text = ocr_rec(file_path).map_err(|e| io::Error::other(e.to_string()))?;
         return Ok(text);
     }
 

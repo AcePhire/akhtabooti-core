@@ -18,7 +18,7 @@ pub struct FilePIIs {
 //detect piis within a certain text
 //detection definitions are in 'definitions.json'
 fn search_text_for_pii(filename: &str, text: &str) -> Result<FilePIIs, io::Error> {
-    let defs = text_utils::load_definitions("definitions.json")?;
+    let defs = text_utils::load_definitions()?;
     let mut results = text_utils::detect(&defs, text);
 
     let email_accounts: HashSet<String> = results.remove("Email").unwrap_or_default();
@@ -40,14 +40,14 @@ pub fn search_directory(path: &str) -> Result<Vec<FilePIIs>, io::Error> {
     let mut piis: Vec<FilePIIs> = Vec::new(); 
 
     for entry in WalkDir::new(path) {
-        let entry = entry.unwrap();
+        let entry = entry?;
         let path = entry.path();
 
         if path.is_file() {
-            let filepath = entry.path().to_str().unwrap();
-            let text = file_utils::extract_text(&filepath).unwrap();
+            let filepath = &entry.path().to_string_lossy();
+            let text = file_utils::extract_text(filepath)?;
 
-            let file_pii = search_text_for_pii(&filepath, &text).unwrap();
+            let file_pii = search_text_for_pii(filepath, &text)?;
             piis.push(file_pii);
         }
     }
@@ -60,9 +60,9 @@ pub fn search_file(path: &str) -> Result<FilePIIs, io::Error> {
     let filepath = Path::new(path);
 
     if filepath.is_file() {
-        let text = file_utils::extract_text(&path).unwrap();
+        let text = file_utils::extract_text(&path)?;
 
-        let file_pii = search_text_for_pii(&path, &text).unwrap();
+        let file_pii = search_text_for_pii(&path, &text)?;
         return Ok(file_pii);
     }
 
